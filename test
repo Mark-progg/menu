@@ -1,0 +1,39 @@
+Asterisk Call Manager/7.0.1
+Response: Success
+Message: Authentication accepted
+
+Response: Success
+Message: Command output follows
+Output: /blacklist/375447038209                           : домогательства
+Output: /blacklist/4959359806                             : оскорбление операторов
+Output: /blacklist/79247353665                            : ребенок           
+Output: /blacklist/9017683857                             : ребёнок           
+Output: /blacklist/9017948988                             : оскорбление оператора
+Output: /blacklist/9029820616                             : оскорбление оператора
+Output: /blacklist/9058239077                             : Николай из Тюмени (не разбанивать)
+Output: /blacklist/9065301294                             : оскорбления   
+Output: /blacklist/9080184811                             : Оскорбления   
+Output: /blacklist/9086544157                             : мат и оскорбление оператора
+Output: /blacklist/9088779238                             : оскорбление оператор
+Output: /blacklist/9123321514                             : ребёнок           
+Output: /blacklist/9123874132                             : оскорбление операторов, нецензурная лексика
+Output: /blacklist/9148821236                             : знакомится     
+Output: /blacklist/9168059534                             : Оскорбляет     
+Output: /blacklist/9173345700                             : мат и угрозы   
+Output: /blacklist/9185011302                             : угрозы             
+Output: /blacklist/9219778386                             : мат, угрозы     
+Output: /blacklist/9247353665                             : ребёнок           
+Output: /blacklist/9276933394                             : хочет купить батарейки 2
+Output: /blacklist/9379921426                             : батарейки 3     
+Output: /blacklist/9397157511                             : хочет купить батарейки
+Output: /blacklist/9500538153                             : оскорбления   
+Output: /blacklist/9521350446                             : оскорбление оператора и мат
+Output: /blacklist/9531805267                             : Оскорбление сотрудников
+Output: /blacklist/9621632222                             : оскорбление операторов
+Output: /blacklist/9829105944                             : Николай из Тюмени (не разбанивать)
+Output: /blacklist/9829131656                             : Николай из Тюмени (не разбанивать)
+Output: 28 results found.
+
+Response: Goodbye
+Message: Thanks for all the fish.
+
