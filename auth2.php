@@ -6,12 +6,13 @@ ini_set("oci8.max_persistent",1);
 ini_set("oci8.persistent_timeout",15);
 #ini_set("oci8.old_oci_close_semantics",1);
 $main_pages=Array('index.php','records.php','marks.php','listadmin.php','discuss.php','log.php','records2.php','jirareasons.php');
-$db='sun';
+$db='MASTER';
 $ast_ip="10.4.0.100";
+$conn = null;
 
-function connect($u,$p,$d='sun'){
+function connect($u,$p,$d='MASTER'){
   global $conn;
-  $conn=oci_connect($u,$p,$d);
+  $conn=oci_connect($u,$p,'//10.1.10.29:1521/MASTER'); // Используем полную строку соединения, собранную из дескриптора TNS
   if (!$conn) {
     $e = oci_error();  
     error_log(htmlentities($e['message'], ENT_QUOTES));
@@ -19,18 +20,21 @@ function connect($u,$p,$d='sun'){
     echo "<span style='color:red;'>Ошибка соединения с базой данных. Попробуйте еще раз.</span>";
     return false;
   }else{
-    return true;
+    return $conn;
   }
 }
 
 function login(){
-  oci_close($conn);
+    global $conn;
+    if ($conn) { // <--- Добавляем проверку на null перед oci_close()
+      oci_close($conn);
+    }
   global $main_pages;
   if(in_array(basename($_SERVER['PHP_SELF']),$main_pages)){
     session_regenerate_id();
     echo '<link rel="stylesheet" type="text/css" href="login.css">';
     echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <form id=loginform action="'.$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'].'" method=post>
+    <form id=loginform action="'.$_SERVER['PHP_SELF']. (!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING'] : '').'" method=post> 
     <h2>Menu-New login</h2>
     <input type=hidden id=action name=action value="login">
     <input type=text id="login" name=username placeholder="Имя">
@@ -51,7 +55,10 @@ if((isset($_SESSION['username'])) && (isset($_SESSION['password']))){
     echo '<meta http-equiv="refresh" content="0">';
   }
   if (isset($_GET['action']) && ($_GET['action']=='logout')){
-    oci_close($conn);
+    global $conn;
+    if ($conn) { // <--- Добавляем проверку на null перед oci_close()
+      oci_close($conn);
+    }
     session_destroy();
     echo '<script type="text/javascript"> document.location.href="'.$_SERVER['PHP_SELF'].'"</script>';
     exit;
@@ -63,6 +70,7 @@ if((isset($_SESSION['username'])) && (isset($_SESSION['password']))){
       $password=$_POST['password'];
       $username='wt'.str_pad($_POST['username'],6,'0',STR_PAD_LEFT);
       if(connect($username,$password,$db)==true){
+        global $conn;
         $stmt=oci_parse($conn,"select s.uname,p.name,ph.phone_number
                         from roles r,
                             grants g,
@@ -114,6 +122,8 @@ if((isset($_SESSION['username'])) && (isset($_SESSION['password']))){
 if (!$conn){
   session_destroy();
   exit;
-}  
+} else { // <--- Добавляем блок else
+  oci_close($conn); // <--- Переносим oci_close($conn) внутрь блока else
+}
 
 ?>

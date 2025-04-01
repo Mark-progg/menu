@@ -1,7 +1,9 @@
 <?php
 //var_dump($_SESSION);
 if(@$_SESSION['admin']==1) echo "<script type='text/javascript'> function adminPauseMember(elem){ if(confirm('Поставить/Снять с паузы '+elem.dataset.number)) loadExternalContent('./dnd2.php?exten='+elem.dataset.number,''); } </script>";
-echo "<script type='text/javascript'>var self_phone='".$_SESSION['phone_number']."';</script>";
+echo "<script type='text/javascript'>var self_phone='";
+echo isset($_SESSION['phone_number']) ? $_SESSION['phone_number'] : "";
+echo "';</script>";
 ?>
   <table id=header>
     <tr>

@@ -4,10 +4,10 @@
   $canhost="be01-prod-can.sl.netlo";
   $candb="can";
   $canuser="jira";
-  $canpass="8vaXzPYv3R8Y";
+  $canpass="322";
   
   $can=new mysqli($canhost,$canuser,$canpass,$candb);
-  $can->set_charset("utf8");
+   ->set_charset("utf8");
 //  var_dump($can->connect_error);
   
 ?>
